@@ -1,2 +1,1 @@
-# stride-examples
-Stride examples
+# Stride Examples
