@@ -1,20 +1,29 @@
 using Stride.CommunityToolkit.Engine;
+using Stride.CommunityToolkit.Rendering.Compositing;
 using Stride.CommunityToolkit.Rendering.ProceduralModels;
 using Stride.CommunityToolkit.Skyboxes;
+using Stride.Core.Diagnostics;
 using Stride.Core.Mathematics;
 using Stride.Engine;
 using Stride.Games;
+using Stride.Graphics;
 using Stride.Input;
 using Stride.Physics;
+using Stride.Rendering;
+using Stride.UI;
+using Stride.UI.Controls;
+using Stride.UI.Panels;
 
 float movementSpeed = 1f;
 float force = 3f;
 Entity? cube1 = null;
 Entity? cube2 = null;
 
-CameraComponent? camera = null; // This was added: Store the camera component
-Simulation? simulation = null; // This was added: Store the physics simulation
-ModelComponent? cube1Component = null; // This was added: Store the model component of Cube 1
+CameraComponent? camera = null;
+Simulation? simulation = null;
+ModelComponent? cube1Component = null;
+
+SpriteFont? font = null; // This was added
 
 using var game = new Game();
 
@@ -22,7 +31,7 @@ game.Run(start: Start, update: Update);
 
 void Start(Scene rootScene)
 {
-    game.AddGraphicsCompositor();
+    game.AddGraphicsCompositor().AddCleanUIStage();
     game.Add3DCamera().Add3DCameraController();
     game.AddDirectionalLight();
     game.Add3DGround();
@@ -48,15 +57,46 @@ void Start(Scene rootScene)
     cube2.Transform.Position = new Vector3(-3, 5, 0);
     cube2.Scene = rootScene;
 
-    // These were added
-    // Initialize camera, simulation, and model component for interactions
     camera = rootScene.GetCamera();
     simulation = game.SceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>()?.Simulation;
     cube1Component = cube1.Get<ModelComponent>();
+
+    // This below was added
+    font = game.Content.Load<SpriteFont>("StrideDefaultFont");
+    var canvas = new Canvas
+    {
+        Width = 300,
+        Height = 100,
+        BackgroundColor = new Color(248, 177, 149, 100),
+        HorizontalAlignment = HorizontalAlignment.Left,
+        VerticalAlignment = VerticalAlignment.Bottom,
+    };
+
+    canvas.Children.Add(new TextBlock
+    {
+        Text = "Hello, Stride!",
+        TextColor = Color.White,
+        Font = font,
+        TextSize = 24,
+        Margin = new Thickness(3, 3, 3, 0),
+    });
+
+    var uiEntity = new Entity
+    {
+        new UIComponent
+        {
+            Page = new UIPage { RootElement = canvas },
+            RenderGroup = RenderGroup.Group31
+        }
+    };
+
+    uiEntity.Scene = rootScene;
 }
 
 void Update(Scene scene, GameTime time)
 {
+    game.DebugTextSystem.Print("Some text", new Int2(50, 50));
+
     var deltaTime = (float)time.Elapsed.TotalSeconds;
 
     // Handle non-physical movement for cube1
@@ -87,12 +127,8 @@ void Update(Scene scene, GameTime time)
         }
     }
 
-    // This was added
-    // Ensure camera and simulation are initialized before handling mouse input
     if (camera == null || simulation == null) return;
 
-    // This was added
-    // Handle mouse input for interactions
     if (game.Input.HasMouse && game.Input.IsMouseButtonPressed(MouseButton.Left))
     {
         // Check for collisions with physics-based entities using raycasting
@@ -100,7 +136,9 @@ void Update(Scene scene, GameTime time)
 
         if (hitResult.Succeeded)
         {
-            Console.WriteLine($"Hit: {hitResult.Collider.Entity.Name}");
+            var message = $"Hit: {hitResult.Collider.Entity.Name}";
+            Console.WriteLine(message);
+            GlobalLogger.GetLogger("Program.cs").Info(message);
 
             var rigidBody = hitResult.Collider.Entity.Get<RigidbodyComponent>();
 

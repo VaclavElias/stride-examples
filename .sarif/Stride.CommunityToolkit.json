@@ -264,90 +264,6 @@
           }
         },
         {
-          "ruleId": "CS0618",
-          "level": "warning",
-          "message": "'FastList<ImmediateDebugRenderFeature.InstanceData>' is obsolete: '.NET Lists can be faster in the latest .NET versions.'",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/Projects/GitHub/stride-community-toolkit/src/Stride.CommunityToolkit/Rendering/DebugShapes/ImmediateDebugRenderFeature.cs",
-                "region": {
-                  "startLine": 295,
-                  "startColumn": 61,
-                  "endLine": 295,
-                  "endColumn": 83
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 2
-          }
-        },
-        {
-          "ruleId": "CS0618",
-          "level": "warning",
-          "message": "'FastList<Matrix>' is obsolete: '.NET Lists can be faster in the latest .NET versions.'",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/Projects/GitHub/stride-community-toolkit/src/Stride.CommunityToolkit/Rendering/DebugShapes/ImmediateDebugRenderFeature.cs",
-                "region": {
-                  "startLine": 298,
-                  "startColumn": 56,
-                  "endLine": 298,
-                  "endColumn": 72
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 2
-          }
-        },
-        {
-          "ruleId": "CS0618",
-          "level": "warning",
-          "message": "'FastList<Color>' is obsolete: '.NET Lists can be faster in the latest .NET versions.'",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/Projects/GitHub/stride-community-toolkit/src/Stride.CommunityToolkit/Rendering/DebugShapes/ImmediateDebugRenderFeature.cs",
-                "region": {
-                  "startLine": 299,
-                  "startColumn": 51,
-                  "endLine": 299,
-                  "endColumn": 66
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 2
-          }
-        },
-        {
-          "ruleId": "CS0618",
-          "level": "warning",
-          "message": "'FastList<ImmediateDebugRenderFeature.LineVertex>' is obsolete: '.NET Lists can be faster in the latest .NET versions.'",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/Projects/GitHub/stride-community-toolkit/src/Stride.CommunityToolkit/Rendering/DebugShapes/ImmediateDebugRenderFeature.cs",
-                "region": {
-                  "startLine": 302,
-                  "startColumn": 62,
-                  "endLine": 302,
-                  "endColumn": 82
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 2
-          }
-        },
-        {
           "ruleId": "CS8618",
           "level": "warning",
           "message": "Non-nullable field 'solidPrimitiveRenderer' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the field as nullable.",
@@ -481,6 +397,90 @@
           ],
           "properties": {
             "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS0618",
+          "level": "warning",
+          "message": "'FastList<ImmediateDebugRenderFeature.InstanceData>' is obsolete: '.NET Lists can be faster in the latest .NET versions.'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/Projects/GitHub/stride-community-toolkit/src/Stride.CommunityToolkit/Rendering/DebugShapes/ImmediateDebugRenderFeature.cs",
+                "region": {
+                  "startLine": 295,
+                  "startColumn": 61,
+                  "endLine": 295,
+                  "endColumn": 83
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 2
+          }
+        },
+        {
+          "ruleId": "CS0618",
+          "level": "warning",
+          "message": "'FastList<Matrix>' is obsolete: '.NET Lists can be faster in the latest .NET versions.'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/Projects/GitHub/stride-community-toolkit/src/Stride.CommunityToolkit/Rendering/DebugShapes/ImmediateDebugRenderFeature.cs",
+                "region": {
+                  "startLine": 298,
+                  "startColumn": 56,
+                  "endLine": 298,
+                  "endColumn": 72
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 2
+          }
+        },
+        {
+          "ruleId": "CS0618",
+          "level": "warning",
+          "message": "'FastList<Color>' is obsolete: '.NET Lists can be faster in the latest .NET versions.'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/Projects/GitHub/stride-community-toolkit/src/Stride.CommunityToolkit/Rendering/DebugShapes/ImmediateDebugRenderFeature.cs",
+                "region": {
+                  "startLine": 299,
+                  "startColumn": 51,
+                  "endLine": 299,
+                  "endColumn": 66
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 2
+          }
+        },
+        {
+          "ruleId": "CS0618",
+          "level": "warning",
+          "message": "'FastList<ImmediateDebugRenderFeature.LineVertex>' is obsolete: '.NET Lists can be faster in the latest .NET versions.'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/Projects/GitHub/stride-community-toolkit/src/Stride.CommunityToolkit/Rendering/DebugShapes/ImmediateDebugRenderFeature.cs",
+                "region": {
+                  "startLine": 302,
+                  "startColumn": 62,
+                  "endLine": 302,
+                  "endColumn": 82
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 2
           }
         },
         {
