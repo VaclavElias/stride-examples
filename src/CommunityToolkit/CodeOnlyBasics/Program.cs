@@ -1,4 +1,5 @@
 using Stride.CommunityToolkit.Engine;
+using Stride.CommunityToolkit.Helpers;
 using Stride.CommunityToolkit.Rendering.Compositing;
 using Stride.CommunityToolkit.Rendering.ProceduralModels;
 using Stride.CommunityToolkit.Skyboxes;
@@ -95,7 +96,7 @@ void Start(Scene rootScene)
 
 void Update(Scene scene, GameTime time)
 {
-    game.DebugTextSystem.Print("Some text", new Int2(50, 50));
+    game.DebugTextSystem.Print($"Entities: {scene.Entities.Count}", new Int2(50, 50));
 
     var deltaTime = (float)time.Elapsed.TotalSeconds;
 
@@ -127,9 +128,38 @@ void Update(Scene scene, GameTime time)
         }
     }
 
-    if (camera == null || simulation == null) return;
+    if (game.Input.IsKeyDown(Keys.Space))
+    {
+        var entity = game.Create3DPrimitive(PrimitiveModelType.Cube, new()
+        {
+            Material = game.CreateMaterial(Color.Green),
+            Size = new Vector3(0.5f, 0.5f, 0.5f),
+        });
 
-    if (game.Input.HasMouse && game.Input.IsMouseButtonPressed(MouseButton.Left))
+        entity.Transform.Position = new Vector3(0, 10, 0);
+        entity.Scene = scene;
+    }
+
+    if (camera == null || simulation == null || !game.Input.HasMouse) return;
+
+    if (game.Input.IsMouseButtonDown(MouseButton.Middle))
+    {
+        var hitResult = camera.RaycastMouse(simulation, game.Input.MousePosition);
+
+        if (hitResult.Succeeded)
+        {
+            var rigidBody = hitResult.Collider.Entity.Get<RigidbodyComponent>();
+
+            if (rigidBody != null)
+            {
+                var direction = VectorHelper.RandomVector3([-20, 20], [0, 20], [-20, 20]);
+
+                rigidBody.ApplyImpulse(direction);
+            }
+        }
+    }
+
+    if (game.Input.IsMouseButtonPressed(MouseButton.Left))
     {
         // Check for collisions with physics-based entities using raycasting
         var hitResult = camera.RaycastMouse(simulation, game.Input.MousePosition);
