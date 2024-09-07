@@ -6,13 +6,13 @@ using Stride.Core.Diagnostics;
 using Stride.Core.Mathematics;
 using Stride.Engine;
 using Stride.Games;
-using Stride.Graphics;
+using Stride.Graphics; // This was added
 using Stride.Input;
 using Stride.Physics;
-using Stride.Rendering;
-using Stride.UI;
-using Stride.UI.Controls;
-using Stride.UI.Panels;
+using Stride.Rendering; // This was added
+using Stride.UI; // This was added
+using Stride.UI.Controls; // This was added
+using Stride.UI.Panels; // This was added
 
 float movementSpeed = 1f;
 float force = 3f;
@@ -31,7 +31,7 @@ game.Run(start: Start, update: Update);
 
 void Start(Scene rootScene)
 {
-    game.AddGraphicsCompositor().AddCleanUIStage();
+    game.AddGraphicsCompositor().AddCleanUIStage(); // This was updated
     game.Add3DCamera().Add3DCameraController();
     game.AddDirectionalLight();
     game.Add3DGround();
@@ -61,7 +61,7 @@ void Start(Scene rootScene)
     simulation = game.SceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>()?.Simulation;
     cube1Component = cube1.Get<ModelComponent>();
 
-    // This below was added
+    // This below was added: Create and display a UI text block
     font = game.Content.Load<SpriteFont>("StrideDefaultFont");
     var canvas = new Canvas
     {
