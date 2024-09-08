@@ -171,7 +171,7 @@ void Update(Scene scene, GameTime time)
         var entity = game.Create3DPrimitive(PrimitiveModelType.Cube, new()
         {
             Material = game.CreateMaterial(Color.Green),
-            Size = new Vector3(0.5f, 0.5f, 0.5f),
+            Size = new Vector3(0.5f),
         });
 
         entity.Transform.Position = new Vector3(0, 10, 0);
