@@ -67,7 +67,9 @@ void Start(Scene rootScene)
     // Add the entity to the root scene so it becomes part of the scene graph
     entity.Scene = rootScene;
 
-    // Create a cube without a collider and add it to the scene (non-physical movement)
+    // Create a cube with material, disable its collider, and add it to the scene
+    // The cube is hanging in the default position Vector(0,0,0) in the air,
+    // well intersecting the ground plane as it is not aware of the ground
     cube1 = game.Create3DPrimitive(PrimitiveModelType.Cube, new()
     {
         Material = game.CreateMaterial(Color.Gold),
