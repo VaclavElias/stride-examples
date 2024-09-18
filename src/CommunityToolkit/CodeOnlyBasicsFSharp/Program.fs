@@ -10,6 +10,11 @@ open Stride.Input
 open Stride.CommunityToolkit.Helpers
 open System
 open Stride.Core.Diagnostics
+open Stride.Graphics
+open Stride.UI.Panels
+open Stride.UI.Controls
+open Stride.UI
+open Stride.Rendering
 
 let mutable movementSpeed = 1.0f
 let mutable force = 3.0f
@@ -19,6 +24,8 @@ let mutable cube2: Entity option = None
 let mutable camera: CameraComponent option = None
 let mutable simulation: Simulation option = None
 let mutable cube1Component: ModelComponent option = None
+
+let mutable font: SpriteFont = null
 
 let game = new Game()
 
@@ -56,6 +63,34 @@ let Start (scene: Scene) =
     simulation <- game.SceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>().Simulation |> Option.ofObj
     cube1Component <- primitive1.Get<ModelComponent>() |> Option.ofObj
 
+    // Create and display a UI text block
+    font <- game.Content.Load<SpriteFont>("StrideDefaultFont")
+
+    let canvas = Canvas(
+        Width = 300.0f,
+        Height = 100.0f,
+        BackgroundColor = Color(byte 248, byte 177, byte 149, byte 100),
+        HorizontalAlignment = HorizontalAlignment.Left,
+        VerticalAlignment = VerticalAlignment.Bottom)
+
+    // Add a text block to the canvas
+    let textBlock = TextBlock(
+        Text = "Hello, Stride!",
+        TextColor = Color.White,
+        Font = font,
+        TextSize = 24.0f,
+        Margin = Thickness(3.0f, 3.0f, 3.0f, 0.0f))
+
+    canvas.Children.Add(textBlock)
+
+    let uiEntity = new Entity()
+    uiEntity.Add(UIComponent(
+        Page = new UIPage(RootElement = canvas),
+        RenderGroup = RenderGroup.Group31))
+
+    uiEntity.Scene <- scene
+
+// Define the Update method, called every frame to update the game state
 let Update (scene: Scene) (time: GameTime) =
     game.DebugTextSystem.Print(sprintf "Entities: %d" scene.Entities.Count, Int2(50, 50))
 
@@ -131,6 +166,9 @@ let Update (scene: Scene) (time: GameTime) =
                 Console.WriteLine("Cube 1 hit!")
 
 [<EntryPoint>]
+// Start the game loop and provide the Start and Update methods as callbacks
+// This method initializes the game, begins running the game loop,
+// and starts processing events.
 let main argv =
     game.Run(start = System.Action<Scene>(Start), update = System.Action<Scene, GameTime>(Update))
     0
