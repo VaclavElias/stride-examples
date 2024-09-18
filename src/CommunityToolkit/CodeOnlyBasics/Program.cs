@@ -35,7 +35,7 @@ using var game = new Game();
 game.Run(start: Start, update: Update);
 
 // Define the Start method to set up the scene
-void Start(Scene rootScene)
+void Start(Scene scene)
 {
     // Add the default graphics compositor to handle rendering and UI stages
     game.AddGraphicsCompositor().AddCleanUIStage();
@@ -65,7 +65,7 @@ void Start(Scene rootScene)
     entity.Transform.Position = new Vector3(0, 8, 0);
 
     // Add the entity to the root scene so it becomes part of the scene graph
-    entity.Scene = rootScene;
+    entity.Scene = scene;
 
     // Create a cube with material, disable its collider, and add it to the scene
     // The cube is hanging in the default position Vector(0,0,0) in the air,
@@ -75,7 +75,7 @@ void Start(Scene rootScene)
         Material = game.CreateMaterial(Color.Gold),
         IncludeCollider = false // No collider for simple movement
     });
-    cube1.Scene = rootScene;
+    cube1.Scene = scene;
 
     // Create a second cube with a collider for physics-based interaction
     cube2 = game.Create3DPrimitive(PrimitiveModelType.Cube, new()
@@ -83,10 +83,10 @@ void Start(Scene rootScene)
         Material = game.CreateMaterial(Color.Orange)
     });
     cube2.Transform.Position = new Vector3(-3, 5, 0); // Reposition the cube above the ground
-    cube2.Scene = rootScene;
+    cube2.Scene = scene;
 
     // Initialize camera, simulation, and model component for interactions
-    camera = rootScene.GetCamera();
+    camera = scene.GetCamera();
     simulation = game.SceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>()?.Simulation;
     cube1Component = cube1.Get<ModelComponent>();
 
@@ -119,7 +119,7 @@ void Start(Scene rootScene)
         }
     };
 
-    uiEntity.Scene = rootScene;
+    uiEntity.Scene = scene;
 }
 
 // Define the Update method, called every frame to update the game state
@@ -127,7 +127,7 @@ void Update(Scene scene, GameTime time)
 {
     game.DebugTextSystem.Print($"Entities: {scene.Entities.Count}", new Int2(50, 50));
 
-    // Calculate the time elapsed since the last frame for consistent movemen
+    // Calculate the time elapsed since the last frame for consistent movement
     var deltaTime = (float)time.Elapsed.TotalSeconds;
 
     // Handle non-physical movement for cube1
