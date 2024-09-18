@@ -7,6 +7,9 @@ open Stride.CommunityToolkit.Rendering.Compositing
 open Stride.Physics
 open Stride.Games
 open Stride.Input
+open Stride.CommunityToolkit.Helpers
+open System
+open Stride.Core.Diagnostics
 
 let mutable movementSpeed = 1.0f
 let mutable force = 3.0f
@@ -19,7 +22,7 @@ let mutable cube1Component: ModelComponent option = None
 
 let game = new Game()
 
-let Start (rootScene: Scene) =
+let Start (scene: Scene) =
     game.AddGraphicsCompositor().AddCleanUIStage() |> ignore
     game.Add3DCamera().Add3DCameraController() |> ignore
     game.AddDirectionalLight() |> ignore
@@ -30,26 +33,26 @@ let Start (rootScene: Scene) =
 
     let entity = game.Create3DPrimitive(PrimitiveModelType.Capsule)
     entity.Transform.Position <- new Vector3(0f, 8f, 0f)
-    entity.Scene <- rootScene
+    entity.Scene <- scene
 
     // Create the first cube (no collider)
     let primitive1 = game.Create3DPrimitive(PrimitiveModelType.Cube, new Primitive3DCreationOptions(
         Material = game.CreateMaterial(Color.Gold),
         IncludeCollider = false
     ))
-    primitive1.Scene <- rootScene
-    cube1 <- Some primitive1 // Assign to the mutable variable
+    primitive1.Scene <- scene
+    cube1 <- Some primitive1
 
     // Create the second cube (with collider)
     let primitive2 = game.Create3DPrimitive(PrimitiveModelType.Cube, new Primitive3DCreationOptions(
         Material = game.CreateMaterial(Color.Orange)
     ))
     primitive2.Transform.Position <- Vector3(-3.0f, 5.0f, 0.0f)
-    primitive2.Scene <- rootScene
-    cube2 <- Some primitive2 // Assign to the mutable variable
+    primitive2.Scene <- scene
+    cube2 <- Some primitive2
 
     // Initialize camera, simulation, and model component for interactions
-    camera <- Some (rootScene.GetCamera())
+    camera <- Some (scene.GetCamera())
     simulation <- game.SceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>().Simulation |> Option.ofObj
     cube1Component <- primitive1.Get<ModelComponent>() |> Option.ofObj
 
@@ -57,9 +60,12 @@ let Update (scene: Scene) (time: GameTime) =
     game.DebugTextSystem.Print(sprintf "Entities: %d" scene.Entities.Count, Int2(50, 50))
 
     // Calculate the time elapsed since the last frame for consistent movement
+    // This is crucial for frame-independent movement, ensuring consistent
+    // behaviour regardless of frame rate.
     let deltaTime = float32 time.Elapsed.TotalSeconds
 
     // Handle non-physical movement for cube1
+    // Move the first cube along the X-axis (non-physical movement)
     match cube1 with
     | Some cube ->
         let position = cube.Transform.Position
@@ -82,6 +88,47 @@ let Update (scene: Scene) (time: GameTime) =
         elif game.Input.IsKeyPressed(Keys.V) then
             rigidBody.ApplyImpulse(Vector3(force, 0.0f, 0.0f))
     | None -> ()
+
+    if game.Input.IsKeyDown(Keys.Space) then
+        let entity = game.Create3DPrimitive(PrimitiveModelType.Cube, new Primitive3DCreationOptions(
+            Material = game.CreateMaterial(Color.Green),
+            Size = new Vector3(0.5f)
+        ))
+        entity.Transform.Position <- Vector3(0f, 10f, 0f)
+        entity.Scene <- scene
+
+    // Ensure camera and simulation are initialized before handling mouse input
+    if camera.IsNone || simulation.IsNone || not game.Input.HasMouse then
+        ()
+    else
+        if game.Input.IsMouseButtonDown(MouseButton.Middle) then
+            let hitResult = camera.Value.RaycastMouse(simulation.Value, game.Input.MousePosition)
+            if hitResult.Succeeded then
+                let rigidBody = hitResult.Collider.Entity.Get<RigidbodyComponent>()
+                if rigidBody <> null then
+                    let direction = VectorHelper.RandomVector3([| -20.0f; 20.0f |], [| 0.0f; 20.0f |], [| -20.0f; 20.0f |])
+                    rigidBody.ApplyImpulse(direction)
+            // Return after handling middle mouse input
+
+        // Handle left mouse button input
+        if game.Input.IsMouseButtonPressed(MouseButton.Left) then
+            let hitResult = camera.Value.RaycastMouse(simulation.Value, game.Input.MousePosition)
+            if hitResult.Succeeded then
+                let message = sprintf "Hit: %s" hitResult.Collider.Entity.Name
+                Console.WriteLine(message)
+                GlobalLogger.GetLogger("Program.fs").Info(message)
+
+                let rigidBody = hitResult.Collider.Entity.Get<RigidbodyComponent>()
+                if rigidBody <> null then
+                    let direction = Vector3(0.0f, 3.0f, 0.0f) // Apply upward impulse
+                    rigidBody.ApplyImpulse(direction)
+            else
+                Console.WriteLine("No hit detected.")
+
+            // Check for intersections with non-physical entities using ray picking
+            let ray = camera.Value.GetPickRay(game.Input.MousePosition)
+            if cube1Component.IsSome && cube1Component.Value.BoundingBox.Intersects(&ray) then
+                Console.WriteLine("Cube 1 hit!")
 
 [<EntryPoint>]
 let main argv =
