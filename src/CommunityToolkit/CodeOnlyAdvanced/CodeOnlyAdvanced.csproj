@@ -13,8 +13,8 @@
     </ItemGroup>
 
     <!--<ItemGroup>
-    <ProjectReference Include="..\..\..\..\stride-community-toolkit\src\Stride.CommunityToolkit.Skyboxes\Stride.CommunityToolkit.Skyboxes.csproj" />
-    <ProjectReference Include="..\..\..\..\stride-community-toolkit\src\Stride.CommunityToolkit.Windows\Stride.CommunityToolkit.Windows.csproj" />
-  </ItemGroup>-->
+        <ProjectReference Include="..\..\..\..\stride-community-toolkit\src\Stride.CommunityToolkit.Skyboxes\Stride.CommunityToolkit.Skyboxes.csproj" />
+        <ProjectReference Include="..\..\..\..\stride-community-toolkit\src\Stride.CommunityToolkit.Windows\Stride.CommunityToolkit.Windows.csproj" />
+    </ItemGroup>-->
 
 </Project>
