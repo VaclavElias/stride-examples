@@ -8,13 +8,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Stride.CommunityToolkit.Skyboxes" Version="1.0.0-preview.49" />
-        <PackageReference Include="Stride.CommunityToolkit.Windows" Version="1.0.0-preview.49" />
+        <PackageReference Include="Stride.CommunityToolkit.Bullet" Version="1.0.0-preview.50" />
+        <PackageReference Include="Stride.CommunityToolkit.Skyboxes" Version="1.0.0-preview.50" />
+        <PackageReference Include="Stride.CommunityToolkit.Windows" Version="1.0.0-preview.50" />
     </ItemGroup>
-
-    <!--<ItemGroup>
-        <ProjectReference Include="..\..\..\..\stride-community-toolkit\src\Stride.CommunityToolkit.Skyboxes\Stride.CommunityToolkit.Skyboxes.csproj" />
-        <ProjectReference Include="..\..\..\..\stride-community-toolkit\src\Stride.CommunityToolkit.Windows\Stride.CommunityToolkit.Windows.csproj" />
-    </ItemGroup>-->
 
 </Project>
