@@ -10,8 +10,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Stride.CommunityToolkit.Skyboxes" Version="1.0.0-preview.47" />
-        <PackageReference Include="Stride.CommunityToolkit.Windows" Version="1.0.0-preview.47" />
+        <PackageReference Include="Stride.CommunityToolkit.Skyboxes" Version="1.0.0-preview.49" />
+        <PackageReference Include="Stride.CommunityToolkit.Windows" Version="1.0.0-preview.49" />
     </ItemGroup>
 
     <!--<ItemGroup>
