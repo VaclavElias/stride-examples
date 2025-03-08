@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
@@ -8,9 +8,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Stride.CommunityToolkit.Bullet" Version="1.0.0-preview.52" />
-        <PackageReference Include="Stride.CommunityToolkit.Skyboxes" Version="1.0.0-preview.52" />
-        <PackageReference Include="Stride.CommunityToolkit.Windows" Version="1.0.0-preview.52" />
+        <PackageReference Include="Stride.CommunityToolkit.Bullet" Version="1.0.0-preview.56" />
+        <PackageReference Include="Stride.CommunityToolkit.Skyboxes" Version="1.0.0-preview.56" />
+        <PackageReference Include="Stride.CommunityToolkit.Windows" Version="1.0.0-preview.56" />
     </ItemGroup>
 
 </Project>
