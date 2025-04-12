@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeOnlyAdvanced", "src\Com
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "CodeOnlyBasicsFSharp", "src\CommunityToolkit\CodeOnlyBasicsFSharp\CodeOnlyBasicsFSharp.fsproj", "{3CFA4504-4E1E-4395-AB62-39DD7E8CC036}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeOnlyBasicsBulletPhysics", "src\CommunityToolkit\CodeOnlyBasicsBulletPhysics\CodeOnlyBasicsBulletPhysics.csproj", "{FC6A17A9-EB81-43C3-ACA7-F1AFCF5B90FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3CFA4504-4E1E-4395-AB62-39DD7E8CC036}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CFA4504-4E1E-4395-AB62-39DD7E8CC036}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CFA4504-4E1E-4395-AB62-39DD7E8CC036}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC6A17A9-EB81-43C3-ACA7-F1AFCF5B90FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC6A17A9-EB81-43C3-ACA7-F1AFCF5B90FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC6A17A9-EB81-43C3-ACA7-F1AFCF5B90FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC6A17A9-EB81-43C3-ACA7-F1AFCF5B90FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
