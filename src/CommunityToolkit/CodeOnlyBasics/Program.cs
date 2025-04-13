@@ -186,7 +186,7 @@ void Update(Scene scene, GameTime time)
 
         entity.Transform.Position = VectorHelper.RandomVector3(
             xRange: [-3, 3],
-            yRange: [10, 20],
+            yRange: [10, 13],
             zRange: [-3, 3]
         );
         entity.Scene = scene;
