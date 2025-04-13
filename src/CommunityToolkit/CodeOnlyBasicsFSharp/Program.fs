@@ -1,4 +1,4 @@
-open Stride.CommunityToolkit.Bullet
+open Stride.CommunityToolkit.Bepu
 open Stride.CommunityToolkit.Engine
 open Stride.CommunityToolkit.Skyboxes
 open Stride.CommunityToolkit.Rendering.ProceduralModels
@@ -16,6 +16,7 @@ open Stride.UI.Panels
 open Stride.UI.Controls
 open Stride.UI
 open Stride.Rendering
+open Stride.BepuPhysics
 
 let mutable movementSpeed = 1.0f
 let mutable force = 3.0f
@@ -23,7 +24,7 @@ let mutable cube1: Entity option = None
 let mutable cube2: Entity option = None
 
 let mutable camera: CameraComponent option = None
-let mutable simulation: Simulation option = None
+let mutable simulation: BepuSimulation option = None
 let mutable cube1Component: ModelComponent option = None
 
 let mutable font: SpriteFont = null
@@ -61,7 +62,7 @@ let Start (scene: Scene) =
 
     // Initialize camera, simulation, and model component for interactions
     camera <- Some (scene.GetCamera())
-    simulation <- game.SceneSystem.SceneInstance.GetProcessor<PhysicsProcessor>().Simulation |> Option.ofObj
+    simulation <- camera |> Option.map (fun c -> c.Entity.GetSimulation())
     cube1Component <- primitive1.Get<ModelComponent>() |> Option.ofObj
 
     // Create and display a UI text block
@@ -118,11 +119,13 @@ let Update (scene: Scene) (time: GameTime) =
     // Handle physics-based movement for cube2
     match cube2 with
     | Some cube ->
-        let rigidBody = cube.Get<RigidbodyComponent>()
+        let rigidBody = cube.Get<BodyComponent>()
         if game.Input.IsKeyPressed(Keys.C) then
-            rigidBody.ApplyImpulse(Vector3(-force, 0.0f, 0.0f))
+            rigidBody.Awake <- true
+            rigidBody.ApplyImpulse(Vector3(-force, 0.0f, 0.0f), Vector3.Zero)
         elif game.Input.IsKeyPressed(Keys.V) then
-            rigidBody.ApplyImpulse(Vector3(force, 0.0f, 0.0f))
+            rigidBody.Awake <- true
+            rigidBody.ApplyImpulse(Vector3(force, 0.0f, 0.0f), Vector3.Zero)
     | None -> ()
 
     if game.Input.IsKeyDown(Keys.Space) then
@@ -130,7 +133,7 @@ let Update (scene: Scene) (time: GameTime) =
             Material = game.CreateMaterial(Color.Green),
             Size = new Vector3(0.5f)
         ))
-        entity.Transform.Position <- Vector3(0f, 10f, 0f)
+        entity.Transform.Position <- VectorHelper.RandomVector3([| -3f; 3f |], [| 10f; 13f |], [| -3f; 3f |])
         entity.Scene <- scene
 
     // Ensure camera and simulation are initialized before handling mouse input
@@ -138,26 +141,30 @@ let Update (scene: Scene) (time: GameTime) =
         ()
     else
         if game.Input.IsMouseButtonDown(MouseButton.Middle) then
-            let hitResult = camera.Value.RaycastMouse(simulation.Value, game.Input.MousePosition)
-            if hitResult.Succeeded then
-                let rigidBody = hitResult.Collider.Entity.Get<RigidbodyComponent>()
+            let mutable hitInfo = Unchecked.defaultof<HitInfo>
+            let hitResult = camera.Value.Raycast(game.Input.MousePosition, 100f, &hitInfo)
+            if hitResult then
+                let rigidBody = hitInfo.Collidable.Entity.Get<BodyComponent>()
                 if rigidBody <> null then
                     let direction = VectorHelper.RandomVector3([| -20.0f; 20.0f |], [| 0.0f; 20.0f |], [| -20.0f; 20.0f |])
-                    rigidBody.ApplyImpulse(direction)
+                    rigidBody.Awake <- true
+                    rigidBody.ApplyImpulse(direction, Vector3.Zero)
             // Return after handling middle mouse input
 
         // Handle left mouse button input
         if game.Input.IsMouseButtonPressed(MouseButton.Left) then
-            let hitResult = camera.Value.RaycastMouse(simulation.Value, game.Input.MousePosition)
-            if hitResult.Succeeded then
-                let message = sprintf "Hit: %s" hitResult.Collider.Entity.Name
+            let mutable hitInfo = Unchecked.defaultof<HitInfo>
+            let hitResult = camera.Value.Raycast(game.Input.MousePosition, 100f, &hitInfo)
+            if hitResult then
+                let message = sprintf "Hit: %s" hitInfo.Collidable.Entity.Name
                 Console.WriteLine(message)
                 GlobalLogger.GetLogger("Program.fs").Info(message)
 
-                let rigidBody = hitResult.Collider.Entity.Get<RigidbodyComponent>()
+                let rigidBody = hitInfo.Collidable.Entity.Get<BodyComponent>()
                 if rigidBody <> null then
                     let direction = Vector3(0.0f, 3.0f, 0.0f) // Apply upward impulse
-                    rigidBody.ApplyImpulse(direction)
+                    rigidBody.Awake <- true
+                    rigidBody.ApplyImpulse(direction, Vector3.Zero)
             else
                 Console.WriteLine("No hit detected.")
 
