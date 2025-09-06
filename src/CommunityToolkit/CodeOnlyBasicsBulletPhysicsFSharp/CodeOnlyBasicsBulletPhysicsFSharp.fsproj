@@ -10,9 +10,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Stride.CommunityToolkit.Bullet" Version="1.0.0-preview.56" />
-        <PackageReference Include="Stride.CommunityToolkit.Skyboxes" Version="1.0.0-preview.56" />
-        <PackageReference Include="Stride.CommunityToolkit.Windows" Version="1.0.0-preview.56" />
+        <PackageReference Include="Stride.CommunityToolkit.Bullet" Version="1.0.0-preview.59" />
+        <PackageReference Include="Stride.CommunityToolkit.Skyboxes" Version="1.0.0-preview.59" />
+        <PackageReference Include="Stride.CommunityToolkit.Windows" Version="1.0.0-preview.59" />
     </ItemGroup>
 
 </Project>
