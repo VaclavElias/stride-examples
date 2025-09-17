@@ -5,7 +5,6 @@ open Stride.CommunityToolkit.Rendering.ProceduralModels
 open Stride.Core.Mathematics
 open Stride.Engine
 open Stride.CommunityToolkit.Rendering.Compositing
-open Stride.Physics
 open Stride.Games
 open Stride.Input
 open Stride.CommunityToolkit.Helpers
