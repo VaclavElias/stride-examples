@@ -86,7 +86,6 @@ void Start(Scene scene)
     cube2.Transform.Position = new Vector3(-3, 5, 0);  // Reposition the cube above the ground
     cube2.Scene = scene;
 
-    // These were added
     // Initialize camera, simulation, and model component for interactions
     camera = scene.GetCamera();
     simulation = camera?.Entity.GetSimulation();
@@ -155,7 +154,7 @@ void Update(Scene scene, GameTime time)
     // Handle physics-based movement for cube2
     if (cube2 != null)
     {
-        // Retrieve the RigidbodyComponent, which handles physics interactions
+        // Retrieve the BodyComponent, which handles physics interactions
         var rigidBody = cube2.Get<BodyComponent>();
 
         // We use KeyPressed instead of KeyDown to apply impulses only once per key press.
@@ -192,7 +191,6 @@ void Update(Scene scene, GameTime time)
         entity.Scene = scene;
     }
 
-    // This was added
     // Ensure camera and simulation are initialized before handling mouse input
     if (camera == null || simulation == null || !game.Input.HasMouse) return;
 
@@ -213,7 +211,6 @@ void Update(Scene scene, GameTime time)
         }
     }
 
-    // This was added
     // Handle mouse input for interactions
     if (game.Input.IsMouseButtonPressed(MouseButton.Left))
     {
@@ -224,7 +221,7 @@ void Update(Scene scene, GameTime time)
         {
             var message = $"Hit: {hitInfo.Collidable.Entity.Name}";
             Console.WriteLine(message);
-            GlobalLogger.GetLogger("Program.cs").Info(message); // This was added
+            GlobalLogger.GetLogger("Program.cs").Info(message);
 
             var rigidBody = hitInfo.Collidable.Entity.Get<BodyComponent>();
 
