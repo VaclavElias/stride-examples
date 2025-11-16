@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
@@ -10,9 +10,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Stride.CommunityToolkit.Bepu" Version="1.0.0-preview.61" />
-        <PackageReference Include="Stride.CommunityToolkit.Skyboxes" Version="1.0.0-preview.61" />
-        <PackageReference Include="Stride.CommunityToolkit.Windows" Version="1.0.0-preview.61" />
+        <PackageReference Include="Stride.CommunityToolkit.Bepu" Version="1.0.0-preview.62" />
+        <PackageReference Include="Stride.CommunityToolkit.Skyboxes" Version="1.0.0-preview.62" />
+        <PackageReference Include="Stride.CommunityToolkit.Windows" Version="1.0.0-preview.62" />
     </ItemGroup>
 
 </Project>
