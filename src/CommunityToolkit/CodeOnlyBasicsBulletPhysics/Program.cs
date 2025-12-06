@@ -177,7 +177,11 @@ void Update(Scene scene, GameTime time)
             Size = new Vector3(0.5f),
         });
 
-        entity.Transform.Position = new Vector3(0, 10, 0);
+        entity.Transform.Position = VectorHelper.RandomVector3(
+            xRange: [-3, 3],
+            yRange: [10, 13],
+            zRange: [-3, 3]
+        );
         entity.Scene = scene;
     }
 
