@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="src/CommunityToolkit/CodeOnlyAdvanced/CodeOnlyAdvanced.csproj" />
+  <Project Path="src/CommunityToolkit/CodeOnlyBasics/CodeOnlyBasics.csproj" />
+  <Project Path="src/CommunityToolkit/CodeOnlyBasicsBulletPhysics/CodeOnlyBasicsBulletPhysics.csproj" />
+  <Project Path="src/CommunityToolkit/CodeOnlyBasicsBulletPhysicsFSharp/CodeOnlyBasicsBulletPhysicsFSharp.fsproj" />
+  <Project Path="src/CommunityToolkit/CodeOnlyBasicsFSharp/CodeOnlyBasicsFSharp.fsproj" />
+</Solution>
