@@ -8,9 +8,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Stride.CommunityToolkit.Bepu" Version="1.0.0-preview.62" />
-        <PackageReference Include="Stride.CommunityToolkit.Skyboxes" Version="1.0.0-preview.62" />
-        <PackageReference Include="Stride.CommunityToolkit.Windows" Version="1.0.0-preview.62" />
+        <PackageReference Include="Stride.CommunityToolkit.Bepu" Version="1.0.0-preview.63" />
+        <PackageReference Include="Stride.CommunityToolkit.Skyboxes" Version="1.0.0-preview.63" />
+        <PackageReference Include="Stride.CommunityToolkit.Windows" Version="1.0.0-preview.63" />
     </ItemGroup>
 
 </Project>

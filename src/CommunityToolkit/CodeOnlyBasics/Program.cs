@@ -97,7 +97,7 @@ void Start(Scene scene)
     }
 
     // This below was added: Create and display a UI text block
-    font = game.Content.Load<SpriteFont>("StrideDefaultFont");
+    font = game.Content.Load<SpriteFont>("/Stride.Engine/StrideDefaultFont");
     var canvas = new Canvas
     {
         Width = 300,
